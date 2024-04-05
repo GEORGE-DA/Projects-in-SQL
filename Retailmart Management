@@ -1,0 +1,86 @@
+CREATE DATABASE SQLBASICS
+USE SQLBASICS
+CREATE TABLE product(
+product_code INT PRIMARY KEY,
+  product_name VARCHAR(255),
+  price DECIMAL(10, 2),
+  stock INT,
+  category VARCHAR(255),
+);
+INSERT INTO product
+VALUES (1,'tulip',198,5,'perfume')
+
+select * from product
+
+CREATE TABLE customer_details (
+  customer_id INT PRIMARY KEY,
+  customer_name VARCHAR(255),
+  customer_location VARCHAR(255),
+  customer_phone VARCHAR(20)
+);
+
+INSERT INTO customer_details
+VALUES (111,"Nisha","kerala",8392320)
+SELECT * FROM customer_details
+
+CREATE TABLE sales(
+date DATE,
+order_number INT,
+customer_id INT,
+customer_name VARCHAR(255),
+product_code INT,
+product_name VARCHAR(255),
+quantity INT,
+price INT
+);
+
+INSERT INTO sales
+VALUES ('2016-07-24',06,9212,"Jessica",11,"pencil",3,30)
+SELECT * FROM sales
+
+ALTER TABLE sales
+ADD s_no INT,
+ADD categories VARCHAR(255);
+SELECT* FROM sales
+
+ALTER TABLE product
+MODIFY column stock VARCHAR(10);
+
+ALTER TABLE customer_details
+RENAME TO customers;
+
+ALTER TABLE sales
+DROP COLUMN s_no,
+DROP COLUMN categories;
+
+select customer_id,date,price,quantity
+from sales;
+
+SELECT* FROM product
+WHERE category='stationary'
+
+
+select distinct category
+from product
+
+select* from sales
+where quantity>2 and price<500;
+
+select customer_name
+from customers
+where customer_name like '%a';
+
+select*from product
+order by price DESC;
+
+select product_code,category
+from product
+where category in(
+select category
+from product
+group by category
+having count(*)>=2
+);
+SELECT sales.order_number, customers.customer_name
+FROM sales
+JOIN customers ON sales.customer_id = customers.customer_id;
